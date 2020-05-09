@@ -16,14 +16,10 @@ public class GUI {
 		for(int op = 0 ; op < height; ++ op){
 			for(int po = 0 ; po < weight ; ++ po){
 
-				JButton button = new JButton();
+				Cell button = new Cell();
 				button.setPreferredSize(new Dimension(10,10));
-				button.addActionListener(e -> {
-
-					button.setBackground(Color.RED);
-
-				});
 				container.add(button);
+
 			}
 		}
 
@@ -31,8 +27,6 @@ public class GUI {
 		result.pack();
 
 		result.setVisible(true);
-
-
 
 		return result;
 
