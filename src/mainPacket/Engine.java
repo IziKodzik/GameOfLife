@@ -4,10 +4,16 @@ import javax.swing.*;
 
 public class Engine {
 
-	JButton[][] map;
+	boolean[][] map;
 
-	public Engine(int width, int height){
+	public Engine(int height, int width){
 
+		map = new boolean[height][width];
+
+	}
+
+	public void remote(int x,int y){
+		map[x][y] = !map[x][y];
 
 	}
 

@@ -7,18 +7,12 @@ public class Cell
 	extends JButton {
 
 	boolean alive;
+	int x,y;
 
-	public Cell(){
+	public Cell(int x, int y){
 		super();
-		addActionListener( (event) ->{
-
-			alive = !alive;
-			if(alive)
-				setBackground(Color.GREEN);
-			else
-				setBackground(Color.WHITE);
-
-		});
+		this.x = x;
+		this.y = y;
 
 	}
 
