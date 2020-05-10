@@ -1,6 +1,9 @@
 package mainPacket;
 
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -89,13 +92,32 @@ public class GUI {
 		});
 		root.add(stepButton,constraints);
 
+		JLabel runningLabel = new JLabel(" NOT RUNNING ");
+		runningLabel.setOpaque(true);
+
+		runningLabel.setBackground(Color.RED);
+
 		JButton toggleButton = new JButton("TOGGLE RUNNING");
 		toggleButton.addActionListener(( event)->{
-
 			running = !running;
+			if(running) {
+				runningLabel.setText("      RUNNING      ");
+				runningLabel.setBackground(Color.GREEN);
+			}else {
+				runningLabel.setText(" NOT RUNNING " );
+				runningLabel.setBackground(Color.RED);
+			}
 		});
+
+
+		JPanel panel = new JPanel();
+		panel.setBackground(new Color(75,75,75));
+		panel.setLayout( new FlowLayout());
+		panel.add(toggleButton);
+		panel.add(runningLabel);
+
 		constraints.gridy = 2;
-		root.add(toggleButton,constraints);
+		root.add(panel,constraints);
 
 
 		result.setMinimumSize(new Dimension(320,240));
