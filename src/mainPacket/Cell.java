@@ -16,4 +16,23 @@ public class Cell
 
 	}
 
+	public void remote(){
+
+		alive = !alive;
+		if(alive)
+			setBackground(new Color(100, 0, 255));
+		else
+			setBackground(new JButton().getBackground());
+	}
+	public void kill(){
+
+		alive = false;
+		setBackground(new JButton().getBackground());
+	}
+	public void rescue(){
+		alive = true;
+		setBackground(new Color(100, 0, 255));
+	}
+
+
 }

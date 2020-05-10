@@ -2,10 +2,26 @@ package mainPacket;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 public class GUI {
 
-	public static JFrame createGUI(int height,int width){
+	static volatile boolean running;
+
+	public static JFrame createGUI(int height,int width,int cellSize){
+
+		GraphicsDevice screen = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+		int sWidth = screen.getDisplayMode().getWidth();
+		int sHeight = screen.getDisplayMode().getHeight() - 100;
+
+		if(height*cellSize > sHeight)
+			height = sHeight/cellSize;
+
+		if(width*cellSize > sWidth)
+			width = sWidth/cellSize;
+
+
 
 		JFrame result = new JFrame();
 		Engine engine = new Engine(height,width);
@@ -16,7 +32,7 @@ public class GUI {
 		root.setBackground(new Color(75,75,75));
 		root.setLayout(new GridBagLayout());
 		GridBagConstraints constraints = new GridBagConstraints();
-
+		constraints.fill = GridBagConstraints.HORIZONTAL;
 		constraints.insets = new Insets(5,0,5,0);
 
 		result.getContentPane().add(root);
@@ -28,14 +44,10 @@ public class GUI {
 			for(int po = 0 ; po < width ; ++ po){
 
 				Cell button = new Cell(op,po);
-				button.setPreferredSize(new Dimension(30,30));
+				button.setPreferredSize(new Dimension(cellSize,cellSize));
 				button.addActionListener( (event) ->{
 
-					button.alive = !button.alive;
-					if(button.alive)
-						button.setBackground(new Color(100, 0, 255));
-					else
-						button.setBackground(new JButton().getBackground());
+					button.remote();
 					engine.remote(button.x,button.y);
 
 				});
@@ -46,6 +58,23 @@ public class GUI {
 			}
 		}
 
+		new Thread( ()->{
+
+			while(true) {
+				while (!running) ;
+				for (; GUI.running; ) {
+
+					engine.step(cells);
+					try {
+						Thread.sleep(100);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+
+				}
+			}
+
+		}).start();
 
 		constraints.anchor = GridBagConstraints.PAGE_START;
 		root.add(mapContainer,constraints);
@@ -60,6 +89,15 @@ public class GUI {
 		});
 		root.add(stepButton,constraints);
 
+		JButton toggleButton = new JButton("TOGGLE RUNNING");
+		toggleButton.addActionListener(( event)->{
+
+			running = !running;
+		});
+		constraints.gridy = 2;
+		root.add(toggleButton,constraints);
+
+
 		result.setMinimumSize(new Dimension(320,240));
 		result.pack();
 
@@ -68,6 +106,8 @@ public class GUI {
 		return result;
 
 	}
+
+
 
 }
 

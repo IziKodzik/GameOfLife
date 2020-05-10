@@ -23,17 +23,38 @@ public class Engine {
 			for(int po = 0 ; po < map[op].length ; ++ po){
 
 				int neighbours = countNeighbours(cells[op][po]);
-				System.out.print(neighbours + " ");
 
 				if(map[op][po]){
+					if(neighbours == 2 || neighbours == 3) {
+						updatedMap[op][po] = true;
+					}
 
-					if(neighbours >)
+				}else{
+
+					if(neighbours == 3)
+						updatedMap[op][po] = true;
 
 				}
 
 			}
+
 			System.out.println();
 		}
+
+		map = updatedMap;
+		for(int op = 0 ; op < map.length ; ++ op){
+			for(int po = 0 ; po < map[op].length ; ++ po){
+
+				if(map[op][po])
+					cells[op][po].rescue();
+				else
+					cells[op][po].kill();
+
+			}
+
+
+		}
+
 
 	}
 
