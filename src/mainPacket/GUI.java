@@ -11,7 +11,7 @@ public class GUI {
 		Engine engine = new Engine(height,width);
 		result.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		result.getContentPane().setLayout(new FlowLayout());
-
+		Cell[][] cells = new Cell[height][width];
 		JPanel container = new JPanel(new GridLayout(height,width));
 
 		for(int op = 0 ; op < height; ++ op){
@@ -26,12 +26,12 @@ public class GUI {
 						button.setBackground(Color.GREEN);
 					else
 						button.setBackground(Color.WHITE);
-					System.out.println(button.x + " " + button.y);
 					engine.remote(button.x,button.y);
 
 				});
-
+				cells[op][po] = button;
 				container.add(button);
+
 
 			}
 		}
