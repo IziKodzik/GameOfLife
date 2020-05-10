@@ -7,7 +7,7 @@ public class Main {
 
 		SwingUtilities.invokeLater(()->{
 
-			GUI.createGUI(69,30);
+			GUI.createGUI(3,3);
 
 		});
 

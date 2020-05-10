@@ -17,42 +17,40 @@ public class Engine {
 		map[x][y] = !map[x][y];
 	}
 	public void step(Cell[][] cells){
-
 		boolean[][] updatedMap = new boolean[map.length][map[0].length];
 
 		for(int op = 0 ; op < map.length ; ++ op){
 			for(int po = 0 ; po < map[op].length ; ++ po){
 
-				int neighbours = 0;
+				int neighbours = countNeighbours(cells[op][po]);
+				System.out.print(neighbours + " ");
 
-				for(int pop = -1; pop < 2; ++ pop){
+				if(map[op][po]){
 
-					for(int opo = -1; opo < 2 ; ++ opo){
-						System.out.println("XD");
-						if(map[op-pop][po-opo])
-							++neighbours;
-
-						if(map[op][po]){
-
-							if(neighbours == 2 || neighbours == 3)
-								updatedMap[op][po] = true;
-							else
-								updatedMap[op][po] = false;
-
-						}else{
-
-							if(neighbours == 3)
-								updatedMap[op][po] = true;
-
-						}
-
-					}
+					if(neighbours >)
 
 				}
 
 			}
+			System.out.println();
 		}
 
+	}
+
+	private int countNeighbours(Cell cell){
+
+		int result = 0;
+			for (int op = -1; op < 2; ++op) {
+				for (int po = -1; po < 2; ++po) {
+
+					try {
+						if (map[cell.x + op][cell.y + po] && !(op == 0  && po == 0))
+							++result;
+					}catch (IndexOutOfBoundsException ignore){}
+
+				}
+			}
+		return result;
 	}
 
 
